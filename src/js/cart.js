@@ -1,5 +1,6 @@
 import { getLocalStorage } from "./utils.mjs";
 
+
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
@@ -24,5 +25,10 @@ function cartItemTemplate(item) {
 
   return newItem;
 }
-
+// function totalCartPrice(item){
+//   const totalcart = ;
+//   if (totalprice > 0) {
+//     document.getElementById("totalcart").cartfooter-hide = false;
+//   }
+// }
 renderCartContents();
