@@ -3,16 +3,18 @@ import { getLocalStorage } from "./utils.mjs";
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+  if (cartItems.length > 0) {
+    document.getElementById("hidde").style.display = "block";
+  }
   const totalprice = sumtotalprice(cartItems);
   document.querySelector(".cart-total").innerHTML = totalprice;
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
 
 function sumtotalprice(items) {
-
+  
   return items.reduce((total, item) =>
     total + Number(item.FinalPrice || item.price), 0);
-  
 }
 
 function cartItemTemplate(item) {
