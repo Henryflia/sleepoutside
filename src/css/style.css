@@ -262,12 +262,12 @@ footer {
   padding: 1em;
 }
 
-#hidde{
+#hidde {
   display: none;
   text-align: right;
   margin-right: 20px;
 }
 
 .cart-total {
-  display: inline
+  display: inline;
 }
