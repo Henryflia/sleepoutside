@@ -4,7 +4,7 @@ function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
+      src="${item.Images.PrimaryMedium}"
       alt="${item.Name}"
     />
   </a>
@@ -12,7 +12,9 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
+  <button class="less">-</button>
+  <p class="cart-card__quantity">qty: <span class="qty">1</span></p>
+  <button class="more">+</button>
   <p class="cart-card__price">$${item.FinalPrice}</p>
 </li>`;
 
@@ -40,4 +42,23 @@ function sumtotalprice(items) {
       
       return items.reduce((total, item) =>
         total + Number(item.FinalPrice || item.price), 0);
+}
+
+document.querySelector(".product-list").addEventListener("click", (e) => {
+  if (e.target.classList.contains("more")) {
+    const parent = e.target.closest(".cart-card");
+    const qty = parent.querySelector(".qty");
+    qty.textContent = Number(qty.textContent) + 1;
+  }
+  if (e.target.classList.contains("less")) {
+    const parent = e.target.closest(".cart-card");
+    const qty = parent.querySelector(".qty");
+    const current = Number(qty.textContent);
+
+    if (current > 1) {
+      qty.textContent = Number(qty.textContent) - 1;
     }
+    
+  }}
+  
+)
