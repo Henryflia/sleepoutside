@@ -1,64 +1,86 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
-    <img
-      src="${item.Images.PrimaryMedium}"
-      alt="${item.Name}"
-    />
-  </a>
-  <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
-  </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <button class="less">-</button>
-  <p class="cart-card__quantity">qty: <span class="qty">1</span></p>
-  <button class="more">+</button>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-</li>`;
+  return `<li class="cart-card divider">
+    <a href="#" class="cart-card__image">
+      <img src="${item.Images.PrimaryMedium}" alt="${item.Name}"/>
+    </a>
+    <a href="#">
+      <h2 class="card__name">${item.Name}</h2>
+    </a>
+    <p class="cart-card__color">${item.Colors[0].ColorName}</p>
 
-  return newItem;
+    <button class="decrease">-</button>
+
+    <p class="cart-card__quantity">${item.quantity}</p>
+
+    <button class="increase">+</button>
+
+    <p class="cart-card__price">$${item.FinalPrice}</p>
+  </li>`;
 }
-export default class ShoppingCart{
-    constructor(key, parentSelector) {
-        this.key = key;
-        this.parentSelector = parentSelector
-    }
-    
-    renderCartContents() {
-      const cartItems = getLocalStorage("so-cart");
-      const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-      if (cartItems.length > 0) {
-        document.getElementById("hidde").style.display = "block";
-      }
-      const totalprice = sumtotalprice(cartItems);
-      document.querySelector(".cart-total").innerHTML = totalprice;
-      document.querySelector(".product-list").innerHTML = htmlItems.join("");
-    }
-    
-}
-function sumtotalprice(items) {
-      
-      return items.reduce((total, item) =>
-        total + Number(item.FinalPrice || item.price), 0);
+
+export default class ShoppingCart {
+  constructor(key, parentSelector) {
+    this.key = key;
+    this.parentSelector = parentSelector;
+  }
+
+  renderCartContents() {
+    const cartItems = getLocalStorage("so-cart") || [];
+
+    // Asegura quantity
+    cartItems.forEach(item => {
+      if (!item.quantity || item.quantity < 1) item.quantity = 1;
+    });
+
+    // Mostrar HTML
+    const htmlItems = cartItems.map(item => cartItemTemplate(item));
+    document.querySelector(".product-list").innerHTML = htmlItems.join("");
+
+    // Mostrar total
+    const totalprice = this.sumtotalprice(cartItems);
+    document.querySelector(".cart-total").textContent = totalprice.toFixed(2);
+
+    // Guardar en localStorage
+    setLocalStorage("so-cart", cartItems);
+  }
+
+  sumtotalprice(items) {
+    return items.reduce(
+      (total, item) => total + (Number(item.FinalPrice) * item.quantity),
+      0
+    );
+  }
 }
 
 document.querySelector(".product-list").addEventListener("click", (e) => {
-  if (e.target.classList.contains("more")) {
-    const parent = e.target.closest(".cart-card");
-    const qty = parent.querySelector(".qty");
-    qty.textContent = Number(qty.textContent) + 1;
-  }
-  if (e.target.classList.contains("less")) {
-    const parent = e.target.closest(".cart-card");
-    const qty = parent.querySelector(".qty");
-    const current = Number(qty.textContent);
+  const cart = getLocalStorage("so-cart");
 
-    if (current > 1) {
-      qty.textContent = Number(qty.textContent) - 1;
+  if (e.target.classList.contains("increase") ||
+      e.target.classList.contains("decrease")) {
+
+    const parent = e.target.closest(".cart-card");
+    const index = Array.from(document.querySelectorAll(".cart-card")).indexOf(parent);
+
+    let currentQty = cart[index].quantity;
+
+    if (e.target.classList.contains("increase")) {
+      currentQty++;
     }
-    
-  }}
-  
-)
+
+    if (e.target.classList.contains("decrease") && currentQty > 1) {
+      currentQty--;
+    }
+
+    // Actualizar cantidad
+    cart[index].quantity = currentQty;
+
+    // Guardar
+    setLocalStorage("so-cart", cart);
+
+    // Volver a renderizar el carrito
+    const cartView = new ShoppingCart("so-cart", ".product-list");
+    cartView.renderCartContents();
+  }
+});
