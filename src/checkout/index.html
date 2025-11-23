@@ -16,7 +16,35 @@
   <body>
     <header class="divider" id="main-header"></header>
 
-    <main class="divider"></main>
+    <main class="divider">
+      <form action="">
+        <label for="Customer Name">First Name</label>
+        <input type="text" required>
+        <label for="Customer Name">Last Name</label>
+        <input type="text" required>
+        <label for="Address ">Street Address</label>
+        <input type="text" required>
+        <label for="Address ">City</label>
+        <input type="text" required>
+        <label for="Address ">State</label>
+        <input type="text" required>
+        <label for="Address ">Zip Code</label>
+        <input type="number" required>
+        <label for="Payment">Credit Card Number</label>
+        <input type="number" required>
+        <label for="Payment">Expiration Date</label>
+        <input type="date" required>
+        <label for="Payment">Security Code</label>
+        <input type="number" required>
+        <button type="submit">submit</button>
+      </form>
+      <h2>Order Summary</h2>
+      <h3>Subtotal: </h3><p class="subTotal"></p>
+      <h3>Tax</h3><p class="tax"></p>
+      <h3>Shipping Estimate</h3><p class="shipping"></p>
+      <h3>Order Total</h3><p class="order"></p>
+
+    </main>
 
     <footer id="main-footer"></footer>
   </body>

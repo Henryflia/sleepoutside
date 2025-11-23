@@ -32,8 +32,9 @@ export default class ShoppingCart {
     // Asegura quantity
     cartItems.forEach(item => {
       if (!item.quantity || item.quantity < 1) item.quantity = 1;
+   
     });
-
+   
     // Mostrar HTML
     const htmlItems = cartItems.map(item => cartItemTemplate(item));
     document.querySelector(".product-list").innerHTML = htmlItems.join("");
@@ -41,6 +42,7 @@ export default class ShoppingCart {
     // Mostrar total
     const totalprice = this.sumtotalprice(cartItems);
     document.querySelector(".cart-total").textContent = totalprice.toFixed(2);
+    setLocalStorage(".cart-total", totalprice)
 
     // Guardar en localStorage
     setLocalStorage("so-cart", cartItems);
