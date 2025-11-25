@@ -1,23 +1,7 @@
-import { getLocalStorage, setLocalStorage,} from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, alertMessage} from "./utils.mjs";
 
 
-// function productDetailsTemplate(product) {
-//   return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
-//     <h2 class="divider">${product.NameWithoutBrand}</h2>
-//     <img
-//       class="divider"
-//       src="${product.Image}"
-//       alt="${product.NameWithoutBrand}"
-//     />
-//     <p class="product-card__price">$${product.FinalPrice}</p>
-//     <p class="product__color">${product.Colors[0].ColorName}</p>
-//     <p class="product__description">
-//     ${product.DescriptionHtmlSimple}
-//     </p>
-//     <div class="product-detail__add">
-//       <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
-//     </div></section>`;
-// }
+
 export default class ProductDetails{
     constructor(productId, dataSource){
         this.productId = productId;
@@ -27,8 +11,10 @@ export default class ProductDetails{
     async init() {
         // use the datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
         this.product = await this.dataSource.findProductById(this.productId)
-        // the product details are needed before rendering the HTML
-        this.renderProductDetails();
+      // the product details are needed before rendering the HTML
+      console.log(this.product.Colors)
+      this.renderProductDetails();
+      this.renderColorOptions(this.product.Colors);
         // once the HTML is rendered, add a listener to the Add to Cart button
         document
             .getElementById("add-to-cart")
@@ -39,11 +25,23 @@ export default class ProductDetails{
         const cartItems = getLocalStorage("so-cart") || [];
         cartItems.push(this.product);
         setLocalStorage("so-cart", cartItems);
+        alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
     }
     
   renderProductDetails() {
       productDetailsTemplate(this.product);
-    }
+  }
+  
+  renderColorOptions(colors) {
+    const container = document.querySelector(".color-options")
+    container.innerHTML = colors.map(color =>
+      `<label class="color-option">
+        <input type="checkbox" name="colors" value"${color.ColorCode}">
+        <img src="${color.ColorChipImageSrc}" alt="$"{color.ColorName}">
+        <span>${color.ColorName}</span>
+      </label>`
+    ).join("")
+  }
 }
 function productDetailsTemplate(product) {
   document.querySelector("h2").textContent = product.Category.charAt(0).toUpperCase() + product.Category.slice(1);
