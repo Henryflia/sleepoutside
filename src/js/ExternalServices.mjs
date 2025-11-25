@@ -1,12 +1,12 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
 async function convertToJson(res) {
+  const data = await res.json()
   if (res.ok) {
-    return res.json();
-  } else {
-    const text = await res.text();  // leer el cuerpo de error
-    console.error("Fetch error:", res.status, res.statusText, text);
-    throw new Error(`Bad Response: ${res.status} ${res.statusText}`);
+    return data;
+  }
+  else {
+        throw { name: "servicesError", message: data };
   }
 }
 

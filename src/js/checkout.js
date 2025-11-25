@@ -7,8 +7,13 @@ order.init();
 
 document.querySelector("#checkoutSubmit").addEventListener("click", (e) => {
     e.preventDefault();
-
-    order.checkout();
+    const form = document.forms[0]
+    const ck_status = form.checkValidity();
+    form.reportValidity();
+    if (ck_status) {
+        order.checkout();
+    }
+  
 })
 
 

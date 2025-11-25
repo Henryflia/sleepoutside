@@ -17,9 +17,11 @@
     <header class="divider" id="main-header"></header>
 
     <main class="divider">
+
       <form name="checkoutForm" action="">
         <fieldset>
-          <legend></legend>
+          <legend>Shipping</legend>
+          <div class="checkp__name">
           <label for="Customer Name">First Name</label>
           <input id="firstName" name="fname" type="text" pattern="[A-Za-zÀ-ÿ\s]+" value="Henry" required>
           <label for="Customer Name">Last Name</label>
@@ -32,6 +34,7 @@
           <input id="state" name="state" type="text" pattern="[A-Za-zÀ-ÿ\s]+"  required>
           <label for="Address ">Zip Code</label>
           <input id="zip" name="zip" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="22000" value="22000" required>
+          </div>
         </fieldset>
         <fieldset>
           <legend>Payment</legend>

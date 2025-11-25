@@ -12,7 +12,7 @@ function cartItemTemplate(item) {
 
     <button class="decrease">-</button>
 
-    <p class="cart-card__quantity">${item.quantity}</p>
+    <p class="cart-card__quantity">qty: ${item.quantity}</p>
 
     <button class="increase">+</button>
 
