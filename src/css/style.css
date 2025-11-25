@@ -256,18 +256,31 @@ form input {
   border-radius: 5px;
 }
 
-.color-option input:checked+img {
-  border-color: black;
-}
 
-.color-option input[type="checkbox"]{
-  display: none;
-}
+
+
 
 .color-options {
   display: flex;
   gap: 1rem;
   margin: 1rem 0;
+
+  & input:checked+img {
+      border-color: black;
+    }
+  
+  & input[type="checkbox"] {
+    display: none;
+  }
+
+  & img {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    /* esquinas redondeadas */
+    border: 2px solid transparent;
+    transition: 0.2s ease;
+  }
 }
 
 .color-option {
@@ -277,14 +290,6 @@ form input {
   cursor: pointer;
 }
 
-.color-option img {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  /* esquinas redondeadas */
-  border: 2px solid transparent;
-  transition: 0.2s ease;
-}
 
 @media (min-width: 768px) {
 
