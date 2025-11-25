@@ -1,4 +1,16 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, formDataToJSON } from "./utils.mjs";
+import ExternalServices from "./ExternalServices.mjs";
+
+const services = new ExternalServices();
+
+function pakageItems(items) {
+    return items.map((item) => ({
+        id: item.Id,
+        name: item.Name,
+        price: item.FinalPrice,
+        quantity: item.quantity
+    }));
+}
 
 export default class CheckoutProcess {
     constructor(key, outputSelector) {
@@ -44,5 +56,23 @@ export default class CheckoutProcess {
         shippingE.textContent = `$${(this.shipping).toFixed(2)}`;
         orderTotalE.textContent = `$${(this.orderTotal).toFixed(2)}`;
     }
+    async checkout(){
+        const forms = document.forms["checkoutForm"]
+        const order = formDataToJSON(forms)
+
+        order.orderDate = new Date().toISOString();
+        order.orderTotal = this.orderTotal;
+        order.tax = this.tax;
+        order.shipping = this.shipping;
+        order.items = pakageItems(this.list);
+        
+        try {
+            const response = await services.checkout(order);
+            console.log(response)
+        } catch (err) {
+            console.log(err)
+        }
+    }
     
 }
+

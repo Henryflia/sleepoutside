@@ -2,10 +2,14 @@ import CheckoutProcess from "./CheckoutProcess.mjs";
 import { loadHeaderFooter} from "./utils.mjs";
 
 loadHeaderFooter();
-const checkout = new CheckoutProcess("so-cart", "#cart_total");
-checkout.init();
+const order = new CheckoutProcess("so-cart", "#cart_total");
+order.init();
 
+document.querySelector("#checkoutSubmit").addEventListener("click", (e) => {
+    e.preventDefault();
 
+    order.checkout();
+})
 
 
 

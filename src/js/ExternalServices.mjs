@@ -1,14 +1,16 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
-function convertToJson(res) {
+async function convertToJson(res) {
   if (res.ok) {
     return res.json();
   } else {
-    throw new Error("Bad Response");
+    const text = await res.text();  // leer el cuerpo de error
+    console.error("Fetch error:", res.status, res.statusText, text);
+    throw new Error(`Bad Response: ${res.status} ${res.statusText}`);
   }
 }
 
-export default class ProductData {
+export default class ExternalServices {
   constructor() {
     
   }
@@ -23,5 +25,16 @@ export default class ProductData {
     const data = await convertToJson(response);
     // console.log(data.Result);
     return data.Result;
+  }
+
+  async checkout(payload) {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    };
+    return await fetch(`${baseURL}checkout/`, options).then(convertToJson);
   }
 }
