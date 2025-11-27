@@ -17,51 +17,117 @@
     <header class="divider" id="main-header"></header>
 
     <main class="divider">
-
       <form name="checkoutForm" action="">
         <fieldset>
           <legend>Shipping</legend>
           <div class="checkp__name">
-          <label for="Customer Name">First Name</label>
-          <input id="firstName" name="fname" type="text" pattern="[A-Za-zÀ-ÿ\s]+" value="Henry" required>
-          <label for="Customer Name">Last Name</label>
-          <input id="lastName" name="lname" type="text" pattern="[A-Za-zÀ-ÿ\s]+" value="Familia" required>
-          <label for="Address ">Street Address</label>
-          <input id="address" name="street" type="text" pattern="[A-Za-z0-9À-ÿ\s\-\#\,]+" placeholder="123 Main St Apt 4B" value="123 Main St Apt 4B" required>
-          <label for="Address ">City</label>
-          <input id="city" name="city" type="text" pattern="[A-Za-zÀ-ÿ\s]+" placeholder="United State" value="United State"  required>
-          <label for="Address ">State</label>
-          <input id="state" name="state" type="text" pattern="[A-Za-zÀ-ÿ\s]+"  required>
-          <label for="Address ">Zip Code</label>
-          <input id="zip" name="zip" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="22000" value="22000" required>
+            <label for="Customer Name">First Name</label>
+            <input
+              id="firstName"
+              name="fname"
+              type="text"
+              pattern="[A-Za-zÀ-ÿ\s]+"
+              value="Henry"
+              required
+            />
+            <label for="Customer Name">Last Name</label>
+            <input
+              id="lastName"
+              name="lname"
+              type="text"
+              pattern="[A-Za-zÀ-ÿ\s]+"
+              value="Familia"
+              required
+            />
+            <label for="Address ">Street Address</label>
+            <input
+              id="address"
+              name="street"
+              type="text"
+              pattern="[A-Za-z0-9À-ÿ\s\-\#\,]+"
+              placeholder="123 Main St Apt 4B"
+              value="123 Main St Apt 4B"
+              required
+            />
+            <label for="Address ">City</label>
+            <input
+              id="city"
+              name="city"
+              type="text"
+              pattern="[A-Za-zÀ-ÿ\s]+"
+              placeholder="United State"
+              value="United State"
+              required
+            />
+            <label for="Address ">State</label>
+            <input
+              id="state"
+              name="state"
+              type="text"
+              pattern="[A-Za-zÀ-ÿ\s]+"
+              required
+            />
+            <label for="Address ">Zip Code</label>
+            <input
+              id="zip"
+              name="zip"
+              type="text"
+              inputmode="numeric"
+              pattern="[0-9]{5}"
+              maxlength="5"
+              placeholder="22000"
+              value="22000"
+              required
+            />
           </div>
         </fieldset>
         <fieldset>
           <legend>Payment</legend>
           <label for="Payment">Credit Card Number</label>
-          <input id="card" name="cardNumber" type="text" inputmode="numeric" maxlength="19" placeholder="1234 5678 9101 1121" value="1234123412341234" required>
+          <input
+            id="card"
+            name="cardNumber"
+            type="text"
+            inputmode="numeric"
+            maxlength="19"
+            placeholder="1234 5678 9101 1121"
+            value="1234123412341234"
+            required
+          />
           <label for="Payment">Expiration Date</label>
-          <input type="text" name="expiration" placeholder="MM/YY" pattern="(0[1-9]|1[0-2])\/\d{2}" value="01/26" required>
+          <input
+            type="text"
+            name="expiration"
+            placeholder="MM/YY"
+            pattern="(0[1-9]|1[0-2])\/\d{2}"
+            value="01/26"
+            required
+          />
           <label for="Payment">Security Code</label>
-          <input type="text" name="code" autocomplete="cc-csc" maxlength="4" pattern="[0-9]{3,4}" value="123" required>
-          
+          <input
+            type="text"
+            name="code"
+            autocomplete="cc-csc"
+            maxlength="4"
+            pattern="[0-9]{3,4}"
+            value="123"
+            required
+          />
         </fieldset>
 
         <fieldset>
-                <legend>Order Summary</legend>
-                <h3>Subtotal: </h3>
-                <p class="subTotal"></p>
-                <h3>Tax</h3>
-                <p class="tax"></p>
-                <h3>Shipping Estimate</h3>
-                <p class="shipping"></p>
-                <h3>Order Total</h3>
-                <p class="order"></p>
-
+          <legend>Order Summary</legend>
+          <h3>Subtotal:</h3>
+          <p class="subTotal"></p>
+          <h3>Tax</h3>
+          <p class="tax"></p>
+          <h3>Shipping Estimate</h3>
+          <p class="shipping"></p>
+          <h3>Order Total</h3>
+          <p class="order"></p>
         </fieldset>
         <button type="submit" id="checkoutSubmit">submit</button>
       </form>
-
     </main>
 
     <footer id="main-footer"></footer>
