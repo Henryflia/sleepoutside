@@ -21,11 +21,26 @@ export default class ProductDetails{
             .addEventListener("click", this.addProductToCart.bind(this));
 // Notice the .bind(this). This callback will not work if the bind(this) is missing. Review the readings from this week on 'this' to understand why.
     }
-    addProductToCart() {
-        const cartItems = getLocalStorage("so-cart") || [];
-        cartItems.push(this.product);
-        setLocalStorage("so-cart", cartItems);
-        alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
+  addProductToCart() {
+      
+    const selectedColor = document.querySelector("input[name='colors']:checked")
+    
+    if (!selectedColor) {
+      alertMessage("Select a color Please")
+      return
+    }
+    const cartItems = getLocalStorage("so-cart") || [];
+
+    const productAdd = {
+      ...this.product,
+      SelectedColor: selectedColor.dataset.name,
+      SelectedColorCode: selectedColor.value,
+      SelectedColorImage: selectedColor.dataset.image
+    };
+
+    cartItems.push(productAdd);
+    setLocalStorage("so-cart", cartItems);
+    alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
     }
     
   renderProductDetails() {
@@ -36,11 +51,27 @@ export default class ProductDetails{
     const container = document.querySelector(".color-options")
     container.innerHTML = colors.map(color =>
       `<label class="color-option">
-        <input type="checkbox" name="colors" value"${color.ColorCode}">
-        <img src="${color.ColorChipImageSrc}" alt="$"{color.ColorName}">
+        <input
+          type="radio"
+          name="colors"
+          value="${color.ColorCode}" 
+          data-image="${color.ColorPreviewImageSrc}" 
+          data-name="${color.ColorName}">
+        <img src="${color.ColorChipImageSrc}" alt="${color.ColorName}">
         <span>${color.ColorName}</span>
       </label>`
     ).join("")
+
+    container.querySelectorAll("input[name='colors']").forEach(input => {
+      input.addEventListener("change", (e) => this.changeimage(e));
+    });
+  }
+
+  changeimage(event) {
+    const newImg = event.target.dataset.image;
+    const colorimg = document.querySelector("#p-image")
+
+    colorimg.src = newImg
   }
 }
 function productDetailsTemplate(product) {

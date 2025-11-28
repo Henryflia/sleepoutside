@@ -264,7 +264,7 @@ form input {
     border-color: black;
   }
 
-  & input[type="checkbox"] {
+  & input[type="radio"] {
     display: none;
   }
 
