@@ -62,6 +62,7 @@ export default class ProductDetails{
       </label>`
     ).join("")
 
+    
     container.querySelectorAll("input[name='colors']").forEach(input => {
       input.addEventListener("change", (e) => this.changeimage(e));
     });
