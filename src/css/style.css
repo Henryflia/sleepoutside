@@ -1,4 +1,3 @@
-
 :root {
   --font-body: Arial, Helvetica, sans-serif;
   --font-headline: Haettenschweiler, "Arial Narrow Bold", sans-serif;
@@ -256,20 +255,16 @@ form input {
   border-radius: 5px;
 }
 
-
-
-
-
 .color-options {
   display: flex;
   gap: 1rem;
   margin: 1rem 0;
 
-  & input:checked+img {
-      border-color: black;
-    }
-  
-  & input[type="checkbox"] {
+  & input:checked + img {
+    border-color: black;
+  }
+
+  & input[type="radio"] {
     display: none;
   }
 
@@ -290,14 +285,7 @@ form input {
   cursor: pointer;
 }
 
-
 @media (min-width: 768px) {
-
-
-
-
-
-  
 }
 @media screen and (min-width: 500px) {
   body {
@@ -341,9 +329,9 @@ footer {
 
 #product-grid li {
   text-decoration-line: none;
-} 
+}
 
-#product-grid a{
+#product-grid a {
   text-decoration-line: none;
 }
 
